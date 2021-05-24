@@ -13,12 +13,13 @@ app.get('/', (req, res) => {
 
 app.post('/upload', async (req, res) => {
     const data = req.body
-    console.log(data)
+    
     const fileHash = await addFile(data)
     return res.send(`https://gateway.ipfs.io/ipfs/${fileHash}`)
 })
 
 const addFile = async ({path, content}) => {
+    console.log(path, content)
     const file = {path: path, content: Buffer.from(content)}
     const filesAdded = await ipfs.add(file)
     console.log(filesAdded)
